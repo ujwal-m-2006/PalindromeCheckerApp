@@ -1,35 +1,43 @@
-public class PalindromeCheckerApp {
+import java.util.Stack;
 
-    // Method to check palindrome using two-pointer technique
-    public static boolean isPalindrome(String str) {
-        int start = 0;
-        int end = str.length() - 1;
+class PalindromeChecker {
 
-        while (start < end) {
-            if (str.charAt(start) != str.charAt(end)) {
+    // Method to check palindrome using Stack internally
+    public boolean checkPalindrome(String text) {
+        Stack<Character> stack = new Stack<>();
+
+        // Push all characters to stack
+        for (int i = 0; i < text.length(); i++) {
+            stack.push(text.charAt(i));
+        }
+
+        // Compare by popping from stack
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) != stack.pop()) {
                 return false;
             }
-            start++;
-            end--;
         }
         return true;
     }
+}
+
+public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        String text = "Nurses Run";
+        String word = "madam";
 
-        // Normalize string: remove spaces and convert to lowercase
-        String normalized = text.replaceAll("\\s+", "").toLowerCase();
+        // Create PalindromeChecker object
+        PalindromeChecker checker = new PalindromeChecker();
 
-        // Check palindrome
-        boolean result = isPalindrome(normalized);
+        // Call method to check palindrome
+        boolean result = checker.checkPalindrome(word);
 
-        // Print result
+        // Display result
         if (result) {
-            System.out.println("\"" + text + "\" is a Palindrome (case-insensitive & space-ignored).");
+            System.out.println(word + " is a Palindrome (using PalindromeChecker service).");
         } else {
-            System.out.println("\"" + text + "\" is NOT a Palindrome (case-insensitive & space-ignored).");
+            System.out.println(word + " is NOT a Palindrome (using PalindromeChecker service).");
         }
     }
 }
